@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "commonjs",
-    "strict": true
+    "module": "es2022",
+    "strict": true,
+    "moduleResolution": "bundler"
   },
   "include": [
     "tests/**/*.ts", 
