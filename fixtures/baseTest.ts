@@ -5,7 +5,7 @@ import { HomePage } from '../pages/HomePage';
 import { BaseDialog } from '../pages/dialogs/BaseDialogPage';
 import { BankAccountPage } from '../pages/bank-accounts/BankAccountPage';
 import { CreateBankAccountPage } from '../pages/bank-accounts/CreateBankAccountPage';
-
+import { UserSettingsPage } from '../pages/my-accounts/UserSettingsPage';
 
 type Pages = {
     signInPage: SignInPage;
@@ -14,6 +14,7 @@ type Pages = {
     baseDialog: BaseDialog
     bankAccountPage: BankAccountPage;
     createBankAccountPage: CreateBankAccountPage;
+    userSettingsPage: UserSettingsPage;
 };
 
 export const test = base.extend<Pages>({
@@ -54,6 +55,10 @@ export const test = base.extend<Pages>({
     createBankAccountPage: async ({ page }, use) => {
         const createBankAccountPage = new CreateBankAccountPage(page);
         await use(createBankAccountPage);
+    },
+    userSettingsPage: async ({ page }, use) => {
+        const userSettingsPage = new UserSettingsPage(page);
+        await use(userSettingsPage);
     }
     
 });
