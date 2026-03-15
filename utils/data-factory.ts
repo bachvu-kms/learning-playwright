@@ -16,7 +16,7 @@ export class DataFactory {
     return {
       name: faker.finance.accountName(),
       routing: faker.finance.routingNumber(),
-      account: faker.finance.accountNumber()
+      account: faker.finance.accountNumber(9)
     };
   }
 }

@@ -3,6 +3,8 @@ import { SignInPage } from '../pages/SignInPage';
 import { SignupPage } from '../pages/SignUpPage';
 import { HomePage } from '../pages/HomePage';
 import { BaseDialog } from '../pages/dialogs/BaseDialogPage';
+import { BankAccountPage } from '../pages/bank-accounts/BankAccountPage';
+import { CreateBankAccountPage } from '../pages/bank-accounts/CreateBankAccountPage';
 
 
 type Pages = {
@@ -10,6 +12,8 @@ type Pages = {
     signUpPage: SignupPage;
     homePage: HomePage;
     baseDialog: BaseDialog
+    bankAccountPage: BankAccountPage;
+    createBankAccountPage: CreateBankAccountPage;
 };
 
 export const test = base.extend<Pages>({
@@ -42,6 +46,14 @@ export const test = base.extend<Pages>({
     baseDialog: async ({ page }, use) => {
         const baseDialog = new BaseDialog(page);
         await use(baseDialog);
+    },
+    bankAccountPage: async ({ page }, use) => {
+        const bankAccountPage = new BankAccountPage(page);
+        await use(bankAccountPage);
+    },
+    createBankAccountPage: async ({ page }, use) => {
+        const createBankAccountPage = new CreateBankAccountPage(page);
+        await use(createBankAccountPage);
     }
     
 });

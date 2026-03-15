@@ -12,4 +12,8 @@ export class HomePage {
         this.bankAccountsNavBtn = page.locator('[data-test="sidenav-bankaccounts"]');
     }
 
+    async clickBankAccountsNav() {
+        await this.bankAccountsNavBtn.click();
+    }
+
 }

@@ -25,7 +25,7 @@ test.describe('Sign Up', () => {
         await signUpPage.signUp(user);
         await expect(page).toHaveURL('/signin');
         await signInPage.signIn(user);
-        await expect(baseDialog.bodyDialog).not.toBeVisible();
+        await expect(baseDialog.bodyDialog).toBeVisible();
         
     });
 });

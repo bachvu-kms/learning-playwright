@@ -9,9 +9,9 @@ export class CreateBankAccountPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.bankNameInput = page.locator('[data-test="bankaccount-new"]')
-        this.routingNumberInput = page.locator('[data-test="bankaccount-routingnumber"]')
-        this.accountNumberInput = page.locator('[data-test="bankaccount-accountnumber"]')
+        this.bankNameInput = page.getByRole('textbox', { name: 'Bank Name' })
+        this.routingNumberInput = page.getByRole('textbox', { name: 'Routing Number' })
+        this.accountNumberInput = page.getByRole('textbox', { name: 'Account Number' })
         this.createAccountBtn = page.locator('[data-test="bankaccount-submit"]')
     }
 
