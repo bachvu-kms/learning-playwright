@@ -27,10 +27,11 @@ export class SignupPage {
     this.firstNameInput = page.getByRole('textbox', { name: 'First Name' });
     this.lastNameInput = page.getByRole('textbox', { name: 'Last Name' });
     this.userNameInput = page.getByRole('textbox', { name: 'Username' });
-    this.passwordInput = page.locator('[data-test="signup-password"]').getByRole('textbox', { name: 'Password' });
+    this.passwordInput = page
+      .locator('[data-test="signup-password"]')
+      .getByRole('textbox', { name: 'Password' });
     this.confirmPasswordInput = page.getByRole('textbox', { name: 'Confirm Password' });
     this.signUpBtn = page.locator('[data-test="signup-submit"]');
-    
   }
 
   async signUp(user: UserData) {
@@ -40,6 +41,5 @@ export class SignupPage {
     await this.passwordInput.fill(user.password);
     await this.confirmPasswordInput.fill(user.confirmPassword);
     await this.signUpBtn.click();
-
   }
 }

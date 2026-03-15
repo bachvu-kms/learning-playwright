@@ -8,7 +8,7 @@ export class DataFactory {
       lastName: faker.person.lastName(),
       username: faker.internet.username(),
       password: password,
-      confirmPassword: password
+      confirmPassword: password,
     };
   }
 
@@ -16,7 +16,7 @@ export class DataFactory {
     return {
       name: faker.finance.accountName(),
       routing: faker.finance.routingNumber(),
-      account: faker.finance.accountNumber(9)
+      account: faker.finance.accountNumber(9),
     };
   }
 }
