@@ -1,12 +1,12 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 
 interface UserCredentials {
   username: string;
   password: string;
 }
 
-export class SignInPage {
-  readonly page: Page;
+export class SignInPage extends BasePage {
   readonly userNameInput: Locator;
   readonly passwordInput: Locator;
   readonly signInBtn: Locator;
@@ -14,7 +14,7 @@ export class SignInPage {
   readonly dontHaveAccountButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.userNameInput = page.getByRole('textbox', { name: 'Username' });
     this.passwordInput = page.getByRole('textbox', { name: 'Password' });
     this.signInBtn = page.locator('[data-test="signin-submit"]');

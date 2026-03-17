@@ -1,8 +1,7 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class UserSettingsPage {
-  readonly page: Page;
-
+export class UserSettingsPage extends BasePage {
   readonly firstNameInput: Locator;
 
   readonly lastNameInput: Locator;
@@ -14,7 +13,8 @@ export class UserSettingsPage {
   readonly submitButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
+
     this.firstNameInput = page.locator('[data-test="user-settings-firstName-input"]');
     this.lastNameInput = page.locator('[data-test="user-settings-lastName-input"]');
     this.emailInput = page.locator('[data-test="user-settings-email-input"]');

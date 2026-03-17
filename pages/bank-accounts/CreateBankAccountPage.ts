@@ -1,14 +1,15 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class CreateBankAccountPage {
-  readonly page: Page;
+export class CreateBankAccountPage extends BasePage {
   readonly bankNameInput: Locator;
   readonly routingNumberInput: Locator;
   readonly accountNumberInput: Locator;
   readonly createAccountBtn: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
+
     this.bankNameInput = page.getByRole('textbox', { name: 'Bank Name' });
     this.routingNumberInput = page.getByRole('textbox', { name: 'Routing Number' });
     this.accountNumberInput = page.getByRole('textbox', { name: 'Account Number' });

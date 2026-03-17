@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/baseTest';
+import { test, expect } from '../fixtures/fixture';
 import { DataFactory } from '../utils/data-factory';
 
 test.describe('Login Bank Account', () => {

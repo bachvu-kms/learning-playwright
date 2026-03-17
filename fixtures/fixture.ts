@@ -7,7 +7,7 @@ import { BankAccountPage } from '../pages/bank-accounts/BankAccountPage';
 import { CreateBankAccountPage } from '../pages/bank-accounts/CreateBankAccountPage';
 import { UserSettingsPage } from '../pages/my-accounts/UserSettingsPage';
 
-type Pages = {
+type Fixtures = {
   signInPage: SignInPage;
   signUpPage: SignupPage;
   homePage: HomePage;
@@ -17,7 +17,7 @@ type Pages = {
   userSettingsPage: UserSettingsPage;
 };
 
-export const test = base.extend<Pages>({
+export const test = base.extend<Fixtures>({
   page: async ({ page }, use) => {
     const originalGoto = page.goto.bind(page);
 
@@ -36,8 +36,10 @@ export const test = base.extend<Pages>({
     await use(signInPage);
   },
   signUpPage: async ({ page }, use) => {
+    console.log('Suite level setup: Creating SignUpPage instance');
     const signUpPage = new SignupPage(page);
     await use(signUpPage);
+    console.log('Suite level teardown: SignUpPage instance used');
   },
   homePage: async ({ page }, use) => {
     const homePage = new HomePage(page);

@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 
 interface UserData {
   firstName: string;
@@ -8,8 +9,7 @@ interface UserData {
   confirmPassword: string;
 }
 
-export class SignupPage {
-  readonly page: Page;
+export class SignupPage extends BasePage {
   readonly firstNameInput: Locator;
 
   readonly lastNameInput: Locator;
@@ -23,7 +23,7 @@ export class SignupPage {
   readonly signUpBtn: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.firstNameInput = page.getByRole('textbox', { name: 'First Name' });
     this.lastNameInput = page.getByRole('textbox', { name: 'Last Name' });
     this.userNameInput = page.getByRole('textbox', { name: 'Username' });

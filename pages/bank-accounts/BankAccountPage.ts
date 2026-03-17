@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class BankAccountPage {
-  readonly page: Page;
+export class BankAccountPage extends BasePage {
   readonly createAccountBtn: Locator;
 
   readonly bankAccountList: Locator;
@@ -11,7 +11,7 @@ export class BankAccountPage {
   readonly deleteBankAccountBtn: (name: string) => Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.createAccountBtn = page.locator('[data-test="bankaccount-new"]');
 
     this.bankAccountList = page.locator('[data-test="bankaccount-list"]');
@@ -19,7 +19,7 @@ export class BankAccountPage {
     this.itemBankAccount = (name: string) => this.bankAccountList.getByText(name);
 
     this.deleteBankAccountBtn = (name: string) =>
-      this.bankAccountList.getByText(name + ' Delete').getByRole('button');
+      this.bankAccountList.getByText(name + ' Delete').getByRole('button', { name: 'Delete' });
   }
 
   async clickCreateAccount() {
