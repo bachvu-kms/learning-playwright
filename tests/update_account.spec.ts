@@ -2,17 +2,15 @@ import { test, expect } from '../fixtures/fixture';
 import { DataFactory } from '../utils/data-factory';
 
 test.describe('Update Information of Account', () => {
+  test.use({ storageState: './tests/storageState.json' });
+
   const user = DataFactory.createNewUser();
 
-  const username = process.env.SEED_USERNAME!;
-  const password = process.env.SEED_PASSWORD!;
-
-  test.beforeEach(async ({ signInPage }) => {
-    await signInPage.goto();
+  test.beforeEach(async ({ homePage }) => {
+    await homePage.goto('/');
   });
 
-  test('TC: Update Information of Account', async ({ signInPage, homePage, userSettingsPage }) => {
-    await signInPage.signIn({ username, password });
+  test('TC: Update Information of Account', async ({ homePage, userSettingsPage }) => {
     await expect(homePage.logoApp).toBeVisible();
     await homePage.clickMyAccountNav();
     await expect(userSettingsPage.firstNameInput).toBeVisible();
