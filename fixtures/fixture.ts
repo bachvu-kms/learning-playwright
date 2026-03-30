@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test';
+import { test as base, expect, APIRequestContext } from '@playwright/test';
 import { SignInPage } from '../pages/SignInPage';
 import { SignupPage } from '../pages/SignUpPage';
 import { HomePage } from '../pages/HomePage';
@@ -6,8 +6,17 @@ import { BaseDialog } from '../pages/dialogs/BaseDialogPage';
 import { BankAccountPage } from '../pages/bank-accounts/BankAccountPage';
 import { CreateBankAccountPage } from '../pages/bank-accounts/CreateBankAccountPage';
 import { UserSettingsPage } from '../pages/my-accounts/UserSettingsPage';
+import { GetStartDialogPage } from '../pages/dialogs/GetStartDialogPage';
+// API Classes
+import { UsersApi } from '../pages/api/UsersApi';
+import { AuthApi } from '../pages/api/AuthApi';
+import { TestDataApi } from '../pages/api/TestDataApi';
+import { TransactionApi } from '../pages/api/TransactionsApi';
+import { BankAccountsApi } from '../pages/api/BankAccountsApi';
 
+// Combined UI and API Fixtures
 type Fixtures = {
+  // UI Page Objects
   signInPage: SignInPage;
   signUpPage: SignupPage;
   homePage: HomePage;
@@ -15,9 +24,18 @@ type Fixtures = {
   bankAccountPage: BankAccountPage;
   createBankAccountPage: CreateBankAccountPage;
   userSettingsPage: UserSettingsPage;
+  getStartDialogPage: GetStartDialogPage;
+  // API Fixtures
+  apiRequest: APIRequestContext;
+  usersApi: UsersApi;
+  authApi: AuthApi;
+  testDataApi: TestDataApi;
+  transactionApi: TransactionApi;
+  bankAccountsApi: BankAccountsApi;
 };
 
 export const test = base.extend<Fixtures>({
+  // UI Fixtures
   page: async ({ page }, use) => {
     const originalGoto = page.goto.bind(page);
 
@@ -61,6 +79,43 @@ export const test = base.extend<Fixtures>({
     const userSettingsPage = new UserSettingsPage(page);
     await use(userSettingsPage);
   },
+  getStartDialogPage: async ({ page }, use) => {
+    const getStartDialogPage = new GetStartDialogPage(page);
+    await use(getStartDialogPage);
+  },
+
+  // API Fixtures
+  apiRequest: async ({ playwright }, use) => {
+    let baseURL = process.env.API_BASE_URL || 'http://localhost:3001';
+    // Remove trailing slash to avoid double slashes
+    baseURL = baseURL.replace(/\/$/, '');
+    const apiRequest = await playwright.request.newContext({ baseURL });
+    await use(apiRequest);
+    await apiRequest.dispose();
+  },
+
+  usersApi: async ({ apiRequest }, use) => {
+    await use(new UsersApi(apiRequest));
+  },
+
+  authApi: async ({ apiRequest }, use) => {
+    await use(new AuthApi(apiRequest));
+  },
+
+  testDataApi: async ({ apiRequest }, use) => {
+    await use(new TestDataApi(apiRequest));
+  },
+
+  transactionApi: async ({ apiRequest }, use) => {
+    await use(new TransactionApi(apiRequest));
+  },
+
+  bankAccountsApi: async ({ apiRequest }, use) => {
+    await use(new BankAccountsApi(apiRequest));
+  },
 });
+
+// Alias for API-focused tests - same fixtures, different naming convention
+export const apiTest = test;
 
 export { expect };

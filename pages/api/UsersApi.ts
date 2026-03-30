@@ -10,8 +10,6 @@ export class UsersApi extends BaseApi {
     const res = await this.request.post('/users', { data: userData });
 
     // Log response details for debugging
-    console.log('POST /users - Status:', res.status(), res.statusText());
-    console.log('Content-Type:', res.headers()['content-type']);
 
     if (!res.ok()) {
       const body = await res.text().catch(() => '');
@@ -20,7 +18,6 @@ export class UsersApi extends BaseApi {
     }
 
     const data = await this.parseJson(res as any);
-    console.log('Parsed response:', JSON.stringify(data, null, 2));
     return data;
   }
 

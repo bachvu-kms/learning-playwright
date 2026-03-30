@@ -1,6 +1,8 @@
 import { test, expect } from '../fixtures/fixture';
 import { DataFactory } from '../utils/data-factory';
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test.describe('Sign Up', () => {
   const user = DataFactory.createNewUser();
 

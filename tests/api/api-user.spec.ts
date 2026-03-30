@@ -1,4 +1,4 @@
-import { apiTest as test, expect } from '../../fixtures/apiFixture';
+import { apiTest as test, expect } from '../../fixtures/fixture';
 import { faker } from '@faker-js/faker';
 
 // Using `apiTest` fixtures — `usersApi` and `authApi` are provided per-test
