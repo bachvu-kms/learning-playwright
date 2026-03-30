@@ -1,17 +1,5 @@
 import { test, expect } from '../../fixtures/fixture';
 
-/**
- * Payment Transaction API Test
- *
- * Test Flow:
- * 1. [API] Seed database with test data
- * 2. [API] Login as seed user and get session cookie
- * 3. [API] Get bank accounts list
- * 4. [API] Get test users list
- * 5. [API] Create payment transaction between two users
- * 6. [API] Verify transaction response structure
- */
-
 test.describe('Payment Transaction API', () => {
   let bankAccountId: string;
   let receiverId: string;
