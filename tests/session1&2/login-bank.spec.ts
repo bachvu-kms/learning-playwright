@@ -4,20 +4,11 @@ import { DataFactory } from '../../utils/data-factory';
 test.describe('Login Bank Account', () => {
   const bankAccount = DataFactory.createBankAccount();
 
-  const username = process.env.SEED_USERNAME!;
-  const password = process.env.SEED_PASSWORD!;
-
   test.beforeEach(async ({ signInPage }) => {
     await signInPage.goto();
   });
 
-  test('TC: Login Bank Account', async ({
-    signInPage,
-    homePage,
-    bankAccountPage,
-    createBankAccountPage,
-  }) => {
-    await signInPage.signIn({ username, password });
+  test('TC: Login Bank Account', async ({ homePage, bankAccountPage, createBankAccountPage }) => {
     await expect(homePage.logoApp).toBeVisible();
     await homePage.clickBankAccountsNav();
     await expect(bankAccountPage.createAccountBtn).toBeVisible();

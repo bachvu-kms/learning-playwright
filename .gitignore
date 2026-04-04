@@ -12,3 +12,4 @@ test/.auth
 tests/.auth/worker-1.json
 tests/.auth/worker-0.json
 /tests/auth
+/tests/.auth
