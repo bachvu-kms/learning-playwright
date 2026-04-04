@@ -21,10 +21,10 @@ test.describe('Payment Transaction API', () => {
      * STEP 2: Login as a valid user via POST /login
      * This sets the session cookie (connect.sid) for subsequent API calls
      */
-    const seedUsername = process.env.SEED_USERNAME || 'Heath93';
-    const seedPassword = process.env.SEED_PASSWORD || 's3cret';
+    const seedUsername = process.env.SEED_USERNAME ;
+    const seedPassword = process.env.SEED_PASSWORD ;
 
-    const loginResponse = await authApi.login(seedUsername, seedPassword);
+    const loginResponse = await authApi.login(seedUsername ?? '', seedPassword ?? '');
     expect(loginResponse).toBeDefined();
 
     // Extract authenticated user ID from login response
