@@ -13,6 +13,8 @@ import { AuthApi } from '../pages/api/AuthApi';
 import { TestDataApi } from '../pages/api/TestDataApi';
 import { TransactionApi } from '../pages/api/TransactionsApi';
 import { BankAccountsApi } from '../pages/api/BankAccountsApi';
+import fs from 'fs';
+import path from 'path';
 
 // Combined UI and API Fixtures
 type Fixtures = {
@@ -34,7 +36,56 @@ type Fixtures = {
   bankAccountsApi: BankAccountsApi;
 };
 
-export const test = base.extend<Fixtures>({
+type WorkerFixtures = {
+  workerStorageState: string;
+};
+
+export const test = base.extend<Fixtures, WorkerFixtures>({
+  // ─── WORKER-SCOPED: Per-Worker Authentication ──────────────────────────────
+  workerStorageState: [
+    async ({ browser }, use, workerInfo) => {
+      const { parallelIndex } = workerInfo;
+      const authDir = path.resolve('./tests/.auth');
+      const stateFile = path.join(authDir, `worker-${parallelIndex}.json`);
+
+      fs.mkdirSync(authDir, { recursive: true });
+
+      if (fs.existsSync(stateFile)) {
+        await use(stateFile);
+        return;
+      }
+
+      const accounts: Array<{ username: string; password: string }> = process.env.WORKER_ACCOUNTS
+        ? JSON.parse(process.env.WORKER_ACCOUNTS)
+        : [];
+
+      const { username, password } = accounts[parallelIndex] ?? {
+        username: process.env.SEED_USERNAME!,
+        password: process.env.SEED_PASSWORD!,
+      };
+
+      const baseURL = (process.env.BASE_URL ?? 'http://localhost:3000').replace(/\/$/, '');
+      const page = await browser.newPage({ storageState: undefined });
+
+      await page.goto(`${baseURL}/signin`);
+
+      const signInPage = new SignInPage(page);
+      const homePage = new HomePage(page);
+
+      await signInPage.signIn({ username, password });
+      await expect(homePage.logoApp).toBeVisible();
+
+      await page.context().storageState({ path: stateFile });
+      await page.close();
+
+      await use(stateFile);
+    },
+    { scope: 'worker' },
+  ],
+
+  // ─── Override built-in storageState option ─────────────────────────────────
+  storageState: ({ workerStorageState }, use) => use(workerStorageState),
+
   // UI Fixtures
   page: async ({ page }, use) => {
     const originalGoto = page.goto.bind(page);

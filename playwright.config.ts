@@ -44,13 +44,22 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'setup',
-      testMatch: /.*\.setup\.ts/,
+      name: 'setup-session4',
+      testMatch: '**/session4.setup.ts',
+      use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], storageState: './tests/storageState.json' },
-      dependencies: ['setup'],
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'session4',
+      testMatch: '**/session4/**/*.spec.ts',
+      dependencies: ['setup-session4'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: '.auth/session4.json',
+      },
     },
   ],
 

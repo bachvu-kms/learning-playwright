@@ -17,6 +17,7 @@ export class BasePage {
       home: this.page.locator('[data-test="sidenav-home"]'),
       signInSubmit: this.page.locator('[data-test="signin-submit"]'),
       bankAccounts: this.page.locator('[data-test="sidenav-bankaccounts"]'),
+      username: this.page.locator('[data-test="sidenav-username"]'),
 
       // Add more shared components as needed
     };

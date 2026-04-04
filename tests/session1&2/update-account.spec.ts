@@ -2,8 +2,6 @@ import { test, expect } from '../../fixtures/fixture';
 import { DataFactory } from '../../utils/data-factory';
 
 test.describe('Update Information of Account', () => {
-  test.use({ storageState: './tests/storageState.json' });
-
   const user = DataFactory.createNewUser();
 
   test.beforeEach(async ({ homePage }) => {

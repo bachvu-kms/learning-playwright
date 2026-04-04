@@ -1,0 +1,14 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://64.176.58.30:3000",
+      "localStorage": [
+        {
+          "name": "authState",
+          "value": "{\"actions\":[{\"type\":\"xstate.start\",\"activity\":{\"src\":{\"type\":\"performLogin\"},\"id\":\"authentication.loading:invocation[0]\",\"type\":\"xstate.invoke\"}}],\"activities\":{\"authentication.loading:invocation[0]\":{\"type\":\"xstate.start\",\"activity\":{\"src\":{\"type\":\"performLogin\"},\"id\":\"authentication.loading:invocation[0]\",\"type\":\"xstate.invoke\"}}},\"meta\":{},\"events\":[],\"value\":\"loading\",\"context\":{},\"_event\":{\"name\":\"LOGIN\",\"data\":{\"type\":\"LOGIN\",\"username\":\"Heath93\",\"password\":\"s3cret\"},\"$$type\":\"scxml\",\"type\":\"external\"},\"_sessionid\":\"x:0\",\"event\":{\"type\":\"LOGIN\",\"username\":\"Heath93\",\"password\":\"s3cret\"},\"historyValue\":{\"current\":\"loading\",\"states\":{}},\"history\":{\"actions\":[],\"activities\":{},\"meta\":{},\"events\":[],\"value\":\"unauthorized\",\"context\":{},\"_event\":{\"name\":\"xstate.init\",\"data\":{\"type\":\"xstate.init\"},\"$$type\":\"scxml\",\"type\":\"external\"},\"_sessionid\":\"x:0\",\"event\":{\"type\":\"xstate.init\"},\"children\":{},\"done\":false,\"changed\":true,\"tags\":[]},\"children\":{\"authentication.loading:invocation[0]\":{\"id\":\"authentication.loading:invocation[0]\"}},\"done\":false,\"changed\":true,\"tags\":[]}"
+        }
+      ]
+    }
+  ]
+}
