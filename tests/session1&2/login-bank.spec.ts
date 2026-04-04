@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/fixture';
-import { DataFactory } from '../utils/data-factory';
+import { test, expect } from '../../fixtures/fixture';
+import { DataFactory } from '../../utils/data-factory';
 
 test.describe('Login Bank Account', () => {
   const bankAccount = DataFactory.createBankAccount();
