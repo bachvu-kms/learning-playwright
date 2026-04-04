@@ -198,6 +198,9 @@ Store sensitive data in `.env` file:
 SEED_USERNAME=testuser@example.com
 SEED_PASSWORD=secretpassword123
 BASE_URL=http://localhost:3000
+
+# Accounts dedicated to parallel workers to prevent session clashing
+WORKER_ACCOUNTS=[{"username":"Heath93","password":"s3cret"},{"username":"qa1","password":"s3cret"}]
 ```
 
 Access in tests:
@@ -206,6 +209,9 @@ Access in tests:
 const username = process.env.SEED_USERNAME!;
 const password = process.env.SEED_PASSWORD!;
 ```
+
+**Per-Worker Authentication Fixture:**
+The system uses a `workerStorageState` custom fixture inside `fixtures/fixture.ts` that associates an isolated authenticated state (`.auth/worker-N.json`) to each running worker process. It looks up `parallelIndex` against the `WORKER_ACCOUNTS` array so you can run thousands of suites reliably at the same time without needing `auth.setup.ts` global overrides!
 
 ## Running Tests
 
@@ -239,6 +245,25 @@ npx playwright test --debug
 ### View Test Report
 ```bash
 npx playwright show-report
+```
+
+### Execute Tests in Shards (CI/CD Optimization)
+For large test suites, you can split execution across distinct fractions (shards) allowing horizontal scaling, then merge them:
+
+1. Validate `playwright.config.ts` incorporates a `"blob"` reporter:
+```typescript
+reporter: 'blob', // Best practice is setting reporters dynamically: process.env.CI ? 'blob' : 'html'
+```
+
+2. Run tests explicitly targeting your shards:
+```bash
+npx playwright test --shard=1/2
+npx playwright test --shard=2/2
+```
+
+3. Merge the generated files into a unified HTML report:
+```bash
+npx playwright merge-reports --reporter html ./blob-report
 ```
 
 ## Development Workflow
