@@ -46,6 +46,8 @@ test.describe('Assignment 2 @regression', () => {
         bankAccountData.account
       );
 
+      await getStartDialogPage.clickNext();
+
       // Assert the correct username appears in the sidebar
       await expect(homePage.components().username).toHaveText(`@${username}`);
 
